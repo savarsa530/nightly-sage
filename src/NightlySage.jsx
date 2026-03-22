@@ -534,6 +534,10 @@ export default function NightlySage() {
   const clearProfile = () => {
     localStorage.removeItem("nightlysage_profile");
     setUserName(""); setUserAnchor(""); setUserReturn("");
+    setEnergy(null); setTime(null); setRoutine(null);
+    setReflections({}); setGratitude(""); setEmailInput(""); setEmailSent(false);
+    setExpandedStep(null); setStepNotes({}); setStepMoods({}); setStepDone({});
+    setJustCompleted({}); setCopied(false);
     go("onboard1");
   };
 
@@ -558,7 +562,8 @@ export default function NightlySage() {
 
   const startOver = () => {
     setEnergy(null); setTime(null); setRoutine(null);
-    setReflections({}); setGratitude(""); setEmailInput(""); setEmailSent(false); setExpandedStep(null);
+    setReflections({}); setGratitude(""); setEmailInput(""); setEmailSent(false);
+    setExpandedStep(null); setMoonIdx(0);
     setStepNotes({}); setStepMoods({}); setStepDone({}); setJustCompleted({}); setCopied(false);
     go("intro");
   };
