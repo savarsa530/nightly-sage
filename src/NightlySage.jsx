@@ -164,7 +164,7 @@ const RITUALS = {
       routine_title: "Equinox Evening",
       greeting: "A balanced night is worth celebrating — not with noise, but with intention. You're here, you're whole, and the evening is yours.",
       steps: [
-        { duration: "5 min", title: "Creative Spark", description: "Open your sketchbook, notes app, or a scrap of paper. Spend five minutes with something you've been meaning to think about — an idea for a painting, a dream for the cabin, a feeling you want to capture. No product required; just playtime.", intention: "Creativity doesn't need conditions — just permission." },
+        { duration: "5 min", title: "Creative Spark", description: "Open your sketchbook, notes app, or a scrap of paper. Spend five minutes with something you've been meaning to think about — an idea you want to make, a dream you're moving toward, a feeling you want to capture. No product required; just playtime.", intention: "Creativity doesn't need conditions — just permission." },
         { duration: "5 min", title: "Gratitude Depth", description: "Write three gratitudes, but go deeper than surface. Not just 'the people I love' but something specific they did or were today. Not just 'health' but the specific thing your body did that you appreciated.", intention: "Specificity is the language of genuine thankfulness." },
         { duration: "5 min", title: "Tomorrow's Landscape", description: "Lightly envision tomorrow — not a to-do list but a feeling. How do you want to feel in the morning? At lunch? After work? Sketch the emotional landscape of a good day tomorrow.", intention: "I participate in creating my own experience." },
       ],
@@ -180,7 +180,7 @@ const RITUALS = {
       greeting: "You came tonight with some of yourself still intact{{NAME_COMMA}} — that's a gift. Let's tend that flame so it burns clear.",
       steps: [
         { duration: "8 min", title: "Movement You Love", description: "Dance in your kitchen. Walk around the block. Stretch into something that feels good. Move for the joy of movement for eight minutes — this is not exercise, it is aliveness.", intention: "My body is not a problem to manage — it is a pleasure to inhabit." },
-        { duration: "7 min", title: "Color & Canvas Time", description: "Whatever art tools you have — even a pencil and a receipt — spend seven minutes making marks. No goal. Respond to how you feel with color or line. The woodland cabin artist is in there every single night.", intention: "I make something. Therefore I am alive." },
+        { duration: "7 min", title: "Color & Canvas Time", description: "Whatever art tools you have — even a pencil and a receipt — spend seven minutes making marks. No goal. Respond to how you feel with color or line. The creator in you is in there every single night.", intention: "I make something. Therefore I am alive." },
         { duration: "10 min", title: "Reflective Write", description: "Free-write for ten minutes about something you're integrating — a realization, a shift, a pattern you've noticed in yourself. Your inner work didn't end with the big breakthroughs; this is where it lives now, in the daily noticing.", intention: "Integration is the quiet revolution." },
         { duration: "5 min", title: "Evening Breath Practice", description: "Sit comfortably and breathe in a 4-7-8 pattern: inhale 4, hold 7, exhale 8. Do this five times. It is one of the most direct paths to the parasympathetic system — your body's own peace signal.", intention: "Peace is not outside me. I breathe it awake." },
       ],
@@ -480,7 +480,7 @@ export default function NightlySage() {
     const energyLabel = ENERGY_LEVELS.find(e => e.id === energy)?.label;
     const displayName = userName.trim() ? userName.trim() : "Friend";
     let b = `🌙 NIGHTLY SAGE — EVENING RITUAL\n${today}\nFor: ${displayName}  |  Energy: ${energyLabel}  |  Time: ${time} min\n\n`;
-    b += `✦ ${routine?.routine_title?.toUpperCase()} ✦\n\n${routine?.greeting}\n\n`;
+    b += `✦ ${routine?.routine_title?.toUpperCase()} ✦\n\n${personalize(routine?.greeting)}\n\n`;
     if (userAnchor.trim() || userReturn.trim()) {
       b += `━━━━━━━━━━━━━━━━━━━━━━\nYOUR ANCHORS\n━━━━━━━━━━━━━━━━━━━━━━\n\n`;
       if (userAnchor.trim()) b += `What keeps you going: ${userAnchor.trim()}\n`;
@@ -489,15 +489,15 @@ export default function NightlySage() {
     }
     b += `━━━━━━━━━━━━━━━━━━━━━━\nTONIGHT'S PRACTICE\n━━━━━━━━━━━━━━━━━━━━━━\n\n`;
     routine?.steps?.forEach((st, i) => {
-      b += `${i+1}. ${st.title}  (${st.duration})\n${st.description}\n✦ ${st.intention}\n`;
+      b += `${i+1}. ${st.title}  (${st.duration})\n${personalize(st.description)}\n✦ ${personalize(st.intention)}\n`;
       if (stepMoods[i]) b += `Feeling: ${stepMoods[i]}\n`;
       if (stepNotes[i]?.trim()) b += `Notes: ${stepNotes[i].trim()}\n`;
       b += "\n";
     });
     b += `━━━━━━━━━━━━━━━━━━━━━━\nMY REFLECTIONS\n━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    routine?.reflection_prompts?.forEach((p, i) => { b += `${p}\n${reflections[i] || "—"}\n\n`; });
+    routine?.reflection_prompts?.forEach((p, i) => { b += `${personalize(p)}\n${reflections[i] || "—"}\n\n`; });
     if (gratitude.trim()) b += `━━━━━━━━━━━━━━━━━━━━━━\nGRATITUDE\n━━━━━━━━━━━━━━━━━━━━━━\n\n${gratitude}\n\n`;
-    b += `━━━━━━━━━━━━━━━━━━━━━━\n\n${routine?.closing_affirmation}\n\nWith love always,\nSage 🌙`;
+    b += `━━━━━━━━━━━━━━━━━━━━━━\n\n${personalize(routine?.closing_affirmation)}\n\nWith love always,\nSage 🌙`;
     return b;
   };
 
